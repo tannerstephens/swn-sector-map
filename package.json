@@ -1,23 +1,15 @@
 {
-  "name": "yarnTemplate",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/preset-env": "^7.8.4",
-    "babel-loader": "^8.0.6",
-    "copy-webpack-plugin": "^5.1.1",
-    "html-webpack-plugin": "^3.2.0",
-    "terser-webpack-plugin": "^2.3.5",
-    "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "esbuild": "^0.18.5"
   },
-  "dependencies": {},
   "scripts": {
-    "production": "webpack --mode production --config webpack.config.prod.js",
-    "build": "webpack --mode development --config webpack.config.dev.js",
-    "start": "webpack-dev-server --config webpack.config.dev.js"
+    "build": "node build/build.js",
+    "start": "node build/watch_build.js"
+  },
+  "dependencies": {
+    "@svgdotjs/svg.js": "^3.2.0",
+    "@svgdotjs/svg.panzoom.js": "^2.1.2",
+    "honeycomb-grid": "^4.1.1",
+    "mustache": "^4.2.0"
   }
 }
