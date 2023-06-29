@@ -2,14 +2,22 @@
     --sidebar-width: 20%;
 }
 
-html, body, .container {
-    height: 100%;
-    margin: 0;
-    /* background-color: rgb(0, 0, 29); */
+body::-webkit-scrollbar {
+    display: none;
 }
 
-svg, .container {
+body {
+    scrollbar-width: none;
+}
+
+html, body, .workspace {
+    height: 100%;
+    margin: 0;
+}
+
+svg, .workspace {
     display: block;
+    background-color: #003;
 }
 
 .github-corner {
@@ -25,12 +33,17 @@ svg, .container {
     right: 0;
     top: 0;
     width: var(--sidebar-width);
-    background-color: #eee;
-    border-left: 2px solid grey;
+    background-color: #223185;
+    border-left: 4px solid black;
     padding-top: 1%;
     padding-left: 2rem;
+    padding-right: 1rem;
 }
 
-.container {
+.sidebar > label {
+    color: white !important;
+}
+
+.workspace {
     margin-right: var(--sidebar-width);
 }

@@ -3,6 +3,13 @@ import '@svgdotjs/svg.panzoom.js';
 import HexGrid from './container/HexGrid';
 import Sidebar from './container/Sidebar';
 import Hex from './container/Hex';
+import renderHex from './container/templates/hex';
+
+const DEFAULTS = {
+    stroke: {color: '#fff', width: 3},
+    fill: '#fff5',
+    selectedStroke: {color: '#ff0', width: 3},
+};
 
 
 export default class Container extends Svg {
@@ -21,6 +28,7 @@ export default class Container extends Svg {
         this.dragged = false;
 
         this.sidebar = new Sidebar();
+        this.selectedHex = null;
     }
 
     /**
@@ -43,11 +51,11 @@ export default class Container extends Svg {
     }
 
 
-    add(element) {
+    add(element, pos) {
         if(element instanceof Hex) {
-            super.add(element.polygon);
+            super.add(element.polygon, pos);
         } else {
-            super.add(element);
+            super.add(element, pos);
         }
 
         return this;
@@ -64,11 +72,13 @@ export default class Container extends Svg {
 
                 this.mouseTrackerHex = hex;
 
-                if(hex.real) {
-                    return
+                if(!hex.real) {
+                    this.add(hex, 0);
                 }
 
-                this.add(hex);
+
+
+
             }
         });
 
@@ -80,18 +90,27 @@ export default class Container extends Svg {
 
             const hex = this.pointToHex({x, y});
 
-            if(hex.real) {
-                this.sidebar.loadHex(hex);
+            if(this.selectedHex) {
+                this.selectedHex
+                    .stroke(DEFAULTS.stroke);
             }
 
+            if(!hex.real) {
+                hex
+                    .fill(DEFAULTS.fill);
+
+                this.add(hex);
+                hex.real = true;
+                this.hexGrid.setHexes([hex]);
+            }
+
+            this.selectedHex = hex;
             hex
-                .stroke({color: '#222'})
-                .fill('#ccc');
+                .stroke(DEFAULTS.selectedStroke)
+                .front();
 
+            this.sidebar.render(renderHex(hex));
 
-            this.add(hex);
-            hex.real = true;
-            this.hexGrid.setHexes([hex]);
         });
 
         this.on('panning', e => {
@@ -104,10 +123,20 @@ export default class Container extends Svg {
             const {layerX: x, layerY: y} = e;
             const hex = this.pointToHex({x, y});
 
+            if(this.selectedHex) {
+                this.selectedHex
+                    .stroke(DEFAULTS.stroke);
+                this.sidebar.clear();
+            }
+
+            this.selectedHex = null;
+
             if(hex.real) {
                 hex.remove();
 
                 this.hexGrid = this.hexGrid.remove(hex);
+
+                this.sidebar.clear();
             }
         })
 
@@ -123,7 +152,7 @@ export default class Container extends Svg {
 
     }
 
-    _renderSvg(svgContainer) {
+    _bindSvg(svgContainer) {
         const parent = svgContainer.parentNode;
         parent.replaceChild(this.node, svgContainer);
         this
@@ -131,8 +160,8 @@ export default class Container extends Svg {
             .viewbox(`0 0 ${parent.clientWidth} ${parent.clientHeight}`);
     }
 
-    render(svgContainer, sidebarContainer) {
-        this.sidebar.render(sidebarContainer);
-        this._renderSvg(svgContainer);
+    bind(svgContainer, sidebarContainer) {
+        this.sidebar.bind(sidebarContainer);
+        this._bindSvg(svgContainer);
     }
 }

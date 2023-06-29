@@ -5,7 +5,7 @@ export default class App {
         this.container = new Container();
     }
 
-    render(svgContainer, sidebarContainer) {
-        this.container.render(svgContainer, sidebarContainer);
+    bind(svgContainer, sidebarContainer) {
+        this.container.bind(svgContainer, sidebarContainer);
     }
 }

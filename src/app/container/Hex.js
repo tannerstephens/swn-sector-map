@@ -6,7 +6,7 @@ export default class Hex extends defineHex({dimensions: 60, origin: 'topLeft'}) 
         super(coords);
         this._polygon = null;
         this.real = false;
-        this.name = ''
+        this.name = '';
     }
 
     /**
@@ -42,6 +42,11 @@ export default class Hex extends defineHex({dimensions: 60, origin: 'topLeft'}) 
 
     remove() {
         this.polygon.remove();
+        return this;
+    }
+
+    front() {
+        this.polygon.front();
         return this;
     }
 }

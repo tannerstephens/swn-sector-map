@@ -2,7 +2,7 @@ import App from "./App";
 
 document.addEventListener('DOMContentLoaded', () => {
     const app = new App();
-    app.render(document.getElementById('svg'), document.getElementById('sidebar'));
+    app.bind(document.getElementById('svg'), document.getElementById('sidebar'));
 });
 
 // Live Reload

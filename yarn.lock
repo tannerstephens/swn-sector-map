@@ -156,8 +156,3 @@ honeycomb-grid@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/honeycomb-grid/-/honeycomb-grid-4.1.1.tgz#c3b2dde53d7b09e4cbdf95e4fafb21c98bd7a248"
   integrity sha512-K7iG5OAd4+T/SILs8kaCO8On+MYGFbEWmPLroXtysfH3i3xMMtN22r2oTlwBaJJiBDs/z3nURC2nFq9ldRsHKw==
-
-mustache@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/mustache/-/mustache-4.2.0.tgz#e5892324d60a12ec9c2a73359edca52972bf6f64"
-  integrity sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==
